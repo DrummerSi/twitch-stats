@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
-    "start": "node server.js"
+    "start": "node server.js",
+    "serve:with-schedule": "node ace serve -- watch && node ace run:scheduler"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.9.3",
@@ -32,6 +33,7 @@
     "@adonisjs/view": "^6.1.0",
     "@twurple/api": "^5.2.5",
     "@twurple/auth": "^5.2.5",
+    "adonis5-scheduler": "^2.0.2",
     "luxon": "^3.0.4",
     "node-fetch": "^2",
     "performance-now": "^2.1.0",

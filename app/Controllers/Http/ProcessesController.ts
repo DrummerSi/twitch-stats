@@ -111,6 +111,8 @@ export default class ProcessesController {
     
     public async test(){
         
+        console.log("TEST")
+        
         //Create streamer
         // const streamer = await Streamer.create({
         //     name: "Simon"
