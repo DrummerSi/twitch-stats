@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -26,12 +26,7 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-          
-      #Add production dependencies (Added this)
-      - name: Yarn production
-        run: yarn install --production
-        working-directory: build
-      
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -52,10 +47,10 @@ jobs:
           name: node-app
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'twitch-stats'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A66471BBB72640CC86504AE57FB20D19 }}
-          package: ./build #Changed this
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DAD86D71BDF74BDFAF7CEB893B357769 }}
+          package: .
