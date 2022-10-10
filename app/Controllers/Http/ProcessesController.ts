@@ -29,31 +29,40 @@ export default class ProcessesController {
         const authProvider = this.getAuthProvider()
         this.apiClient = new ApiClient({ authProvider })
         
-        await STREAMS.forEach(async (username: string) => {
+        console.log(this.apiClient)
+        
+        const streamData = await this.isStreamLive("rayforrachel")
+        console.log("1.")
+        if(streamData){
+            console.log(streamData.title)
+        }
+        
+        
+        // await STREAMS.forEach(async (username: string) => {
             
-            const streamData = await this.isStreamLive(username)
-            if(streamData){
-                console.log(`${username} IS LIVE`)
+        //     const streamData = await this.isStreamLive(username)
+        //     if(streamData){
+        //         console.log(`${username} IS LIVE`)
                 
-                const start = now()
+        //         const start = now()
                 
-                const streamer = await await Streamer.firstOrCreate({name: username}, {name: username})
-                const stream = await this.createStream(streamer, streamData)
-                console.log(` >> Created stream '${stream.title}' with ${stream.viewerCount} viewers`)
+        //         const streamer = await await Streamer.firstOrCreate({name: username}, {name: username})
+        //         const stream = await this.createStream(streamer, streamData)
+        //         console.log(` >> Created stream '${stream.title}' with ${stream.viewerCount} viewers`)
                 
-                await this.storeUsers(streamer, stream)
+        //         await this.storeUsers(streamer, stream)
                 
-                const end = now()
-                console.log(`    >> COMPLETE: ${(end-start).toFixed(2)} ms`)
-                console.log("")
+        //         const end = now()
+        //         console.log(`    >> COMPLETE: ${(end-start).toFixed(2)} ms`)
+        //         console.log("")
                 
-            } else {
-                console.log(`${username} is not live`)
-            }
+        //     } else {
+        //         console.log(`${username} is not live`)
+        //     }
             
-            console.log(" __ PROCESS COMPLETE __")
+        //     console.log(" __ PROCESS COMPLETE __")
             
-        });
+        // });
         
         return "Operation complete 123"
         
