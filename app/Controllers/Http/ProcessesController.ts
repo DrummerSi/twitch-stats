@@ -29,14 +29,6 @@ export default class ProcessesController {
         const authProvider = this.getAuthProvider()
         this.apiClient = new ApiClient({ authProvider })
         
-        console.log(this.apiClient)
-        
-        const streamData = await this.isStreamLive("rayforrachel")
-        console.log("1.")
-        if(streamData){
-            console.log(streamData.title)
-        }
-        
         const allStreams = STREAMS.map(async (username: string) => {
             
             const streamData = await this.isStreamLive(username)
@@ -109,7 +101,7 @@ export default class ProcessesController {
         const allChatters = [...data.chatters.viewers, ...data.chatters.moderators] as string[];
         
         let usersToStore = await Promise.all(allChatters.map(async(chatter) => {
-            return await Viewer.firstOrCreate({name: chatter}, {name: chatter})
+            return await Viewer.firstOrCreate({name: chatter})
         }));
         
         console.log(`Saved ${usersToStore.length} viewers`)
