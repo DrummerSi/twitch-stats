@@ -80,7 +80,6 @@ export default class ProcessesController {
         await stream.related("viewers").attach(usersToStore)
         
     }
-    
 
     private async createStream(streamer: Streamer, streamData: HelixStream){
         
@@ -98,7 +97,6 @@ export default class ProcessesController {
         
     }
     
-    
     private roundDateToNearest30(date = new Date()){
         const minutes = 30;
         const ms = 1000 * 60 * minutes
@@ -110,8 +108,9 @@ export default class ProcessesController {
     
     
     public async test(){
+
+        return "Access denied"
         
-        console.log("Running TEST function")
         await Streamer.create({
             name: (Math.random() + 1).toString(36).substring(7)
         })

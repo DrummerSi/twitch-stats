@@ -1,3 +1,4 @@
+
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
@@ -21,8 +22,8 @@ export default class extends BaseSchema {
         .onUpdate("CASCADE")
         .onDelete("CASCADE")
         
-      table.timestamp('created_at', { useTz: true }).defaultTo(Date())
-      table.timestamp('updated_at', { useTz: true }).defaultTo(Date())
+      table.timestamp('created_at', { useTz: true }) //.defaultTo(Date())
+      table.timestamp('updated_at', { useTz: true }) //.defaultTo(Date())
     })
   }
 
