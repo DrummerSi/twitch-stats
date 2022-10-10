@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '16.x'
 
-      - name: Yarm install
+      - name: Yarn install
         run: |
           yarn install
           yarn build
