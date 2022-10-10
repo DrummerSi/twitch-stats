@@ -37,6 +37,33 @@ export default class ProcessesController {
             console.log(streamData.title)
         }
         
+        const allStreams = STREAMS.map(async (username: string) => {
+            
+            const streamData = await this.isStreamLive(username)
+                if(streamData){
+                console.log(`${username} IS LIVE`)
+                
+                const start = now()
+                
+                const streamer = await await Streamer.firstOrCreate({name: username}, {name: username})
+                const stream = await this.createStream(streamer, streamData)
+                console.log(` >> Created stream '${stream.title}' with ${stream.viewerCount} viewers`)
+                
+                await this.storeUsers(streamer, stream)
+                
+                const end = now()
+                console.log(`    >> COMPLETE: ${(end-start).toFixed(2)} ms`)
+                console.log("")
+                
+            } else {
+                console.log(`${username} is not live`)
+            }
+            
+        })
+        
+        await Promise.all(allStreams)
+        
+        console.log(" __ PROCESS COMPLETE __")
         
         // await STREAMS.forEach(async (username: string) => {
             
