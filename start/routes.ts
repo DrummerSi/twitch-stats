@@ -19,8 +19,10 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import Application from '@ioc:Adonis/Core/Application'
 
 Route.get('/', async ({ view }) => {
+    return Application.databasePath()
   return view.render('welcome')
 })
 
