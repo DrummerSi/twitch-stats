@@ -49,7 +49,7 @@ const databaseConfig: DatabaseConfig = {
       },
       useNullAsDefault: true,
       healthCheck: false,
-      debug: false,
+      debug: true,
     },
 
     /*
@@ -76,7 +76,7 @@ const databaseConfig: DatabaseConfig = {
         naturalSort: true,
       },
       healthCheck: false,
-      debug: false,
+      debug: true,
     },
 
   }

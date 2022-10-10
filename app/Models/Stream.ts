@@ -22,7 +22,7 @@ export default class Stream extends BaseModel {
     @column()
     public viewerCount: number
     
-    @column()
+    @column.dateTime()
     public dataTime: DateTime
 
     @column.dateTime({ autoCreate: true })
@@ -30,6 +30,7 @@ export default class Stream extends BaseModel {
 
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
+    
     
     @hasOne(() => Streamer)
     public streamer: HasOne<typeof Streamer>

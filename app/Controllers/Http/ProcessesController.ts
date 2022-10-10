@@ -41,7 +41,7 @@ export default class ProcessesController {
                 const stream = await this.createStream(streamer, streamData)
                 console.log(` >> Created stream '${stream.title}' with ${stream.viewerCount} viewers`)
                 
-                this.storeUsers(streamer, stream)
+                await this.storeUsers(streamer, stream)
                 
                 const end = now()
                 console.log(`    >> COMPLETE: ${(end-start).toFixed(2)} ms`)
@@ -72,15 +72,14 @@ export default class ProcessesController {
         
         //Time to store in the database
         let usersToStore = [] as number[]
-        allChatters.forEach(async(chatter) => {
+        await allChatters.forEach(async(chatter) => {
             
             //Get the user
             const user = await Viewer.firstOrCreate({name: chatter}, {name: chatter})
             usersToStore.push(user.id)
-            //console.log(`Assigning user: ${user.id} to viewer: ${stream.id}`)
         });
         
-        await stream.related("viewers").attach(usersToStore)
+        await stream.related("viewers").sync(usersToStore)
         
     }
 
@@ -111,7 +110,17 @@ export default class ProcessesController {
     
     
     public async test(){
-
+        
+        // const stream = await Stream.findByOrFail("id", 1)
+        
+        // let users = [] as any[]
+        // const user1 = await Viewer.firstOrCreate({name: "drummer_si1"}, {name: "drummer_si1"})
+        // users.push(user1.id)
+        // const user2 = await Viewer.firstOrCreate({name: "drummer_si2"}, {name: "drummer_si2"})
+        // users.push(user2.id)
+        
+        // await stream.related("viewers").attach(users)    
+        
         return "Access denied"
         
         await Streamer.create({
