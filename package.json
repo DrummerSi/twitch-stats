@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
-    "postbuild": "cd ./build && yarn install --production",
+    "postbuild": "cd ./build && npm ci --production",
     "start": "cd ./build && node server.js",
     "serve:with-schedule": "node ace serve -- watch && node ace run:scheduler"
   },
