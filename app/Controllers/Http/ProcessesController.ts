@@ -19,8 +19,11 @@ export default class ProcessesController {
     private apiClient: ApiClient
     
     public async index(){
+        
+        console.log("Init process...")
 
         const STREAMS = Env.get("STREAMER_LIST").split(",").map(s => s.trim())
+        console.log(STREAMS)
         //const API_URL = Env.get("API_URL")
         
         const authProvider = this.getAuthProvider()
