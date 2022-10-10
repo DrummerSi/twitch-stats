@@ -26,5 +26,6 @@ Route.get('/', async ({ view }) => {
 
 Route.group(() => {
     Route.get("/run", "ProcessesController.index")
+    Route.get("/test", "ProcessesController.test")
 }).prefix("api") //.middleware("auth:basic")
 

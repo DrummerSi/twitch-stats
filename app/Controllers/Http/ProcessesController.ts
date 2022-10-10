@@ -111,7 +111,10 @@ export default class ProcessesController {
     
     public async test(){
         
-        console.log("TEST")
+        console.log("Running TEST function")
+        await Streamer.create({
+            name: (Math.random() + 1).toString(36).substring(7)
+        })
         
         //Create streamer
         // const streamer = await Streamer.create({
