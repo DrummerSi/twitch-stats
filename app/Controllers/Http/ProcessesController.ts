@@ -29,7 +29,7 @@ export default class ProcessesController {
         const authProvider = this.getAuthProvider()
         this.apiClient = new ApiClient({ authProvider })
         
-        STREAMS.forEach(async (username: string) => {
+        await STREAMS.forEach(async (username: string) => {
             
             const streamData = await this.isStreamLive(username)
             if(streamData){
@@ -55,7 +55,7 @@ export default class ProcessesController {
             
         });
         
-        return "Operation complete"
+        return "Operation complete 123"
         
         
     }
@@ -70,18 +70,14 @@ export default class ProcessesController {
         }) as any
         
         //Collate all viewers and mods
-        const allChatters = [...data.chatters.viewers, ...data.chatters.moderators];
+        const allChatters = [...data.chatters.viewers, ...data.chatters.moderators] as string[];
         
-        //Time to store in the database
-        let usersToStore = [] as number[]
-        await allChatters.forEach(async(chatter) => {
-            
-            //Get the user
-            const user = await Viewer.firstOrCreate({name: chatter}, {name: chatter})
-            usersToStore.push(user.id)
-        });
+        let usersToStore = await Promise.all(allChatters.map(async(chatter) => {
+            return await Viewer.firstOrCreate({name: chatter}, {name: chatter})
+        }));
         
-        await stream.related("viewers").sync(usersToStore)
+        console.log(`Saved ${usersToStore.length} viewers`)
+        await stream.related("viewers").sync(usersToStore.map(u => u.id))
         
     }
 
@@ -161,7 +157,7 @@ export default class ProcessesController {
     private async isStreamLive(name: string){
         const user = await this.apiClient.users.getUserByName(name)
         if(!user) return false
-        const stream = user.getStream()
+        const stream = await user.getStream()
         
         return (stream !== null ? stream : false)
     }                       
